@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Installing Pl/R on Windows</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="http://ase-research.org/R/rmd.css" type="text/css" />
+</head>
+<body>
+<div id="header">
+<h1 class="title">Installing Pl/R on Windows</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#getting-plr">Getting Pl/R</a></li>
+<li><a href="#set-the-following-environment-variables">Set the following environment variables</a></li>
+<li><a href="#restart-postgresql">Restart PostgreSQL</a></li>
+<li><a href="#enable-plr">Enable plr</a></li>
+</ul>
+</div>
+<h2 id="getting-plr">Getting Pl/R</h2>
+<p>First, download the correct files for your version of PostgreSQL and R from <a href="http://www.joeconway.com/plr/">here</a>. If you updated prior to the workshop, this is PostgreSQL 9.5 and R 3.3. Also make sure to download the the correct bit-level files (32 or 64 bit).</p>
+<p>Inside the zip file are a set of files that need to be moved to certain locations in your system’s PostgreSQL folder. The file names and the places to put, using an example system PostgreSQL folder of <code>C:\Program Files\PostgreSQL\9.5</code>, are:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">file</th>
+<th align="left">place in…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">README.plr</td>
+<td align="left">C:Files.5 </td>
+</tr>
+<tr class="even">
+<td align="left">plr.dll</td>
+<td align="left">C:Files.5 </td>
+</tr>
+<tr class="odd">
+<td align="left">plr.sql</td>
+<td align="left">C:Files.5 </td>
+</tr>
+<tr class="even">
+<td align="left">plr.control</td>
+<td align="left">C:Files.5 </td>
+</tr>
+<tr class="odd">
+<td align="left">plr–8.3.0.14.sql</td>
+<td align="left">C:Files.5 </td>
+</tr>
+<tr class="even">
+<td align="left">plr–unpackaged–8.3.0.16.sql</td>
+<td align="left">C:Files.5 </td>
+</tr>
+</tbody>
+</table>
+<h2 id="set-the-following-environment-variables">Set the following environment variables</h2>
+<p>Open control panel and navigate to System -&gt; Advanced System Settings. In the dialog, click the “Environmental Variables” button on the bottom.</p>
+<p>Append to end of your current <code>PATH</code> variable (adjust the paths to PostgreSQL and R if necessary):</p>
+<pre><code>C:\Program Files\PostgreSQL\9.5\bin;C:\Program Files\PostgreSQL\9.5\lib;C:\Program Files\R\R-3.3.0\bin\x64;$PATH</code></pre>
+<p>Create a new variable called <code>R_HOME</code> and add the value of your current R folder:</p>
+<pre><code>C:\Program Files\R\R-3.3.0\</code></pre>
+<h2 id="restart-postgresql">Restart PostgreSQL</h2>
+<p>Close all open PostgreSQL connections (pgAdmin, R, anything that is connected to the server).</p>
+<p>Finally, go to your Windows services dialog. You can find this in the Task Manager, Services Tab. Then Click the “Services” button on the bottom.</p>
+<p>Once inside the services, locate the <code>postgresql-x64-9.5 - PostgreSQL Server 9.5</code> service, and Restart it.</p>
+<h2 id="enable-plr">Enable plr</h2>
+<p>Once PostgreSQL is restarted, you can go to pgAdmin and connect to a database. Then execute the command:</p>
+<pre><code>CREATE EXTENSION plr;</code></pre>
+<p>This will enable <code>plr</code> on that database; if it completes the command, then everything is likely OK on the PostgreSQL end. To test whether you can connect to R, use the following commands:</p>
+<pre><code>SELECT * FROM plr_environ();
+SELECT load_r_typenames();</code></pre>
+<p>If the commands run successfully, you have successfully set up plr; if they hang (run for a long time but don’t finish), you likely have some environmental variables incorrectly set (go back and check that all the path names you set in the environmental variables section above are valid). For more troubleshooting, visit the guide <a href="http://www.bostongis.com/PrinterFriendly.aspx?content_name=postgresql_plr_tut01">here</a>.</p>
+</body>
+</html>

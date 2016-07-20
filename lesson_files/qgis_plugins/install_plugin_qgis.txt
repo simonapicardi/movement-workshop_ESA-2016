@@ -1,0 +1,9 @@
+To install a QGIS plugin manually:
+
+Download the plugin (e.g. OpenLayers from https://plugins.qgis.org/plugins/openlayers_plugin/)
+
+Extract folder to : 'C:\Users\dbucklin\.qgis2\python\plugins' for python plugins
+
+Enable in QGIS.
+
+Find under Web->Open Layers
