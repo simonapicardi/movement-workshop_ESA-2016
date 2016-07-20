@@ -1,6 +1,6 @@
 # Integration of spatial data and exercises
 
-# reduce lesson 5, remove exercises
+# this lesson 5 is only demostration (do not run queries)
 % Lesson 5. Spatial data types in PostgreSQL/PostGIS
 % 7 June 2016
 
@@ -425,6 +425,7 @@ The available functions are many, many more: look them up in the
 [reference](http://postgis.net/docs/manual-2.0/reference.html) to get
 a grasp of what kind of tools PostGIS will offer you.
 
+# lesson 6
 
 
 % Lesson 6. Spatial is not special: how to manage the locations data in a spatial database: PostGIS
@@ -859,7 +860,7 @@ coordinates. In the example, the error is negligible.
     verify if there is any temporal pattern;
 3.  Repeat the above exercises for all the animals.
 
-
+# lesson 7
 
 % Lesson 7. Environmental layers: integration and management of spatial ancillary information
 % 8 June 2016
@@ -1474,7 +1475,7 @@ The result is:
 2.  What is the proportion of GPS locations in each land cover class
     used by all animals?
 
-
+# lesson 8
 
 % Lesson 8. How to extract environmental information related to location data
 % 8 June 2016
@@ -2463,6 +2464,7 @@ DELETE FROM main.gps_sensors WHERE gps_sensors_code = 'GSM_test';
 DELETE FROM main.gps_data WHERE gps_sensors_code = 'GSM_test';
 ```
 
+# drop lesson 10
 # lesson 10
 
 % Lesson 10. From Movements to Steps: the movement model implementation

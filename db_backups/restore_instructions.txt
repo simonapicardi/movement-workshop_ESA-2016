@@ -1,0 +1,9 @@
+These backups can be restored using pgAdmin. First create a new database, right click "Restore", and select the file.
+
+The raster data for (env_data.srtm_dem, env_data.corine_land_cover) will likely fail to be restored (errors will be shown during restore). If so, drop those tables in the restored database, and re-upload in command line as shown below:
+
+
+> "C:\Program Files\PostgreSQL\9.5\bin\raster2pgsql.exe" -I -M -C -s 4326 -t 20x20 C:\tracking_db\data\env_data\raster\srtm_dem.tif env_data.srtm_dem | "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -p 5432 -d gps_tracking_db -U postgres -h localhost
+
+> "C:\Program Files\PostgreSQL\9.5\bin\raster2pgsql.exe" -I -M -C -s 3035 C:\tracking_db\data\env_data\raster\corine06.tif -t 20x20 env_data.corine_land_cover | "C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -p 5432 -d gps_tracking_db -U postgres -h localhost
+
