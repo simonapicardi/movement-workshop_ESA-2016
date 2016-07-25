@@ -1,8 +1,6 @@
 # Part 1. Setting up a wildlife tracking database using PostgreSQL
 
-#lesson 2
-% Lesson 2. Storing tracking data in an advanced database platform: PostgreSQL
-% 6 June 2016
+# Lesson 1. Storing tracking data in an advanced database platform: PostgreSQL
 
 The state-of-the-art technical tool for effectively and efficiently
 managing tracking data is the spatial relational database. Using
@@ -41,8 +39,7 @@ handled by researchers. In this and the following exercises, you will
 create a fully operational relational database for GPS tracking
 data. The first steps to carry out are the creation of a new database,
 of a new schema and a table to accommodate data coming from the (GPS)
-sensor that can then be imported. All the basic knowledge needed for
-these tasks were introduced in the Part 1 of this tutorial.
+sensor that can then be imported. 
 
 
 ### Example
@@ -178,7 +175,7 @@ IS 'Table that stores raw data as they come from the sensors (plus the ID of the
 ```
 
 In a relational database, each table must have a primary key, that is
-a field (or combination of fields) that uniquely identify each
+a field (or combination of fields) that uniquely identifies each
 record. In this case, we added a
 [SERIAL](http://www.postgresql.org/docs/devel/static/sql-createsequence.html)
 id field managed by the database (as a sequence of integers
@@ -220,7 +217,7 @@ file is stored in a folder where it is not accessible by the
 database. In this case, move it to a folder that is accessible to all
 users of your computer.
 
-If PostgreSQL complain that date is out of range, check the standard
+If PostgreSQL complains that the date is out of range, check the standard
 date format used by PostgreSQL
 ([datestyle](http://www.postgresql.org/docs/devel/static/runtime-config-client.html#GUC-DATESTYLE)):
 
@@ -258,7 +255,7 @@ Import into the database the raw GPS data from the test sensors:
 -   GSM01512
 
 
-## Topic 2. Finalize the table of raw data: acquisition timestamps, indexes and permissions
+## Topic 2. Finalize the table of raw data: acquisition timestamps and indexes
 
 
 ### Introduction
@@ -293,11 +290,7 @@ permission levels can be set for each user. For example, you can have
 a single administrator that can change the database, a set of advanced
 users that can edit the content of the core tables and create their
 own object (e.g. tables, functions) without changing the main database
-structure, and a set of users that can just read the data. In the
-exercise, a new group of database users and related
-permissions([roles and privileges](http://www.postgresql.org/docs/9.0/static/user-manag.html))
-on the raw locations table will be added to illustrate some of the
-options to manage different class of users.
+structure, and a set of users that can just read the data. We are not covering these topics in this workshop, but it is worth to mention that there are options available to manage different class of users. ([roles and privileges](http://www.postgresql.org/docs/9.0/static/user-manag.html))
 
 
 ### Example
@@ -380,20 +373,12 @@ Write SQL queries to determine answers to the following:
     and latitude) for each sensor?
 
 
-### Exercise
-
-1.  Find and export to a .csv file the first and last acquisition
-    times for each sensor.
-
-
 ## Summary exercise of Lesson 2
 
 1.  Find the number of days monitored by each GPS sensor.
 
 
-# lesson 3
-% Lesson 3. Managing and modelling information on animals and sensors
-% 7 June 2016
+# Lesson 2. Managing and modelling information on animals and sensors
 
 
 GPS positions are used to describe animal movements and to derive a
@@ -420,13 +405,7 @@ database.
 A data model describes what types of data are stored and how they are
 organized. It can be seen as the conceptual representation of the real
 world in the database structures that include data objects
-(i.e. tables) and their mutual relationships. In particular, data
-modelling becomes a key step when database systems grow in size and
-complexity, and user requirements become more sophisticated: it
-permits easy updates and modification and adaptation of the database
-structure to accommodate the changing goals, constraints, and spatial
-scales of studies and the evolution of wildlife tracking
-systems. Without a rigorous data modelling approach, an information
+(i.e. tables) and their mutual relationships. Without a rigorous data modelling approach, an information
 system might lose the flexibility to manage data efficiently in the
 long term, reducing its utility to a simple storage device for raw
 data, and thus failing to address many of the necessary requirements.
@@ -470,7 +449,7 @@ taken off an animal) and at the same time the 'beginning' of another
 
 Thanks to the tables 'animals', 'sensors' and 'sensors to animals',
 and the relationships built among them, GPS data can be linked
-unequivocally to individuals, i.e. the sampling units (see Lesson 4).
+unequivocally to individuals, i.e. the sampling units.
 
 Some information related to animals can change over time. Therefore,
 they must be marked with the reference time that they refer
@@ -479,10 +458,7 @@ positivity of association to a disease. Translocation may also
 coincide with the capture/release time. If this information changes
 over time according to well-defined rules (e.g. transition from age
 classes), their value can be dynamically calculated in the database at
-different moments in time (e.g. using database functions). In one of
-the next lessons, you will see an example of a function to calculate
-age class from the information on the age class at capture and the
-acquisition time of GPS positions for roe deer. The basic structure
+different moments in time (e.g. using database functions). The basic structure
 based on the elements *animals*, *sensors*, *sensors to animals*, and,
 of course, *position data*, can be extended to take into account the
 specific goals of each project, the complexity of the real-world
@@ -501,9 +477,9 @@ databases can quickly get complex and grow up to hundreds of tables.
 The design of the database data model is an exercise that must be
 performed at the very initial stage of the creation of a
 database. Once the objects (and objectives) of a study are identified
-and described (see above), some tools exist to graphically translates
+and described (see above), some tools exist to graphically translate
 the conceptual model into connected tables, each of them representing
-a specific entity of the world. This process is not trivial and force
+a specific entity of the world. This process is not trivial and forces
 biologists to "formalize" their goals, data and scientific approach
 (which also helps to organize the whole data collection in a
 systematic and consistent way). For example, at the beginning of a
@@ -869,7 +845,7 @@ The result of the query is:
     list.
 
 
-## Summary exercise of Lesson 3
+## Summary exercise of Lesson 2
 
 1.  Design a general schema of a possible database extension
     (i.e. table(s) and their links) to include information on capture
@@ -886,9 +862,7 @@ The result of the query is:
         than once at the different stages of the capture).
 
 
-# lesson 4
-% Lesson 4. From data to information: associating locations to animals
-% 7 June 2016
+# Lesson 3. From data to information: associating locations to animals
 
 
 When position data are received from GPS sensors, they are not
@@ -898,7 +872,7 @@ the information on the deployments of GPS sensors on animals (when
 sensors started and ceased to be deployed on the animals). In the case
 of a continuous data flow, the transformation of GPS positions into
 animal locations must be automated in order to have GPS data imported
-and processed in real-time. In this lesson, you extend the database
+and processed in real-time. In this lesson, you will extend the database
 with two new tables, *gps\_sensors\_animals* and
 *gps\_data\_animals*. As additional material, a set of dedicated
 database triggers and functions is presented that add tools to
